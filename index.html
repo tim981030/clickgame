@@ -7,7 +7,7 @@
     <style>
         #b{
             position:fixed;
-            top:47.5vh;
+            top:20vh;
             left:47.5vw;
             height:5vh;
             width:5vw;
@@ -27,8 +27,8 @@
     <div class="st">
         <h6 id="s">score:0</h6>
         <h6 id="t">time:5</h6>
-        <button id="b">start</button>
     </div>   
+    <button id="b">start</button>
     <script>
         element=document.querySelector('#b');
         s=document.querySelector('#s');
@@ -70,11 +70,13 @@
             if(m){
                 add();
             }
+            else{time-=0.1}
         })
         window.addEventListener('keydown',function(){
             if(m){
                 add();
             }
+            else{time-=0.1}
         })
         setInterval(function(){
             time=Math.round(time*10)/10;
