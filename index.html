@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>game</title>
+    <style>
+        a{
+            justify-content:center;
+        }
+    </style>
+</head>
+<body>
+    <h6 id="s">分數:0</h6>
+    <button id="b">點我</button>
+    <script>
+        element=document.querySelector('#b');
+        s=document.querySelector('#s');
+        let score=0;
+        element.addEventListener('click',function(){
+            element.style.position='fixed';
+            element.style.top=(Math.random()*100)+'vh';
+            element.style.left=(Math.random()*100)+'vw';
+            score+=1;
+            s.innerText='分數:'+score;
+        })
+    </script>
+</body>
+</html>
