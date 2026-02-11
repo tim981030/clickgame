@@ -5,25 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>game</title>
     <style>
-        a{
+        #b{
+            position:fixed;
+            top:47.5vh;
+            left:47.5vw;
+            height:5vh;
+            width:5vw;
+        }
+        .st{
+            position:fixed;
+            display:flex;
+            flex-direction:column;
+            width:5vw;
+            left:48.5vw;
+            top:40vh;
             justify-content:center;
         }
     </style>
 </head>
 <body>
-    <h6 id="s">分數:0</h6>
-    <button id="b">點我</button>
+    <div class="st">
+        <h6 id="s">score:0</h6>
+        <h6 id="t">time:5</h6>
+    </div>
+    <button id="b">start</button>
     <script>
         element=document.querySelector('#b');
         s=document.querySelector('#s');
+        t=document.querySelector('#t');
+        let start=false;
+        let time=5;
         let score=0;
-        element.addEventListener('click',function(){
+        function nw(element){
             element.style.position='fixed';
-            element.style.top=(Math.random()*100)+'vh';
-            element.style.left=(Math.random()*100)+'vw';
-            score+=1;
-            s.innerText='分數:'+score;
+            element.style.top=(Math.random()*95)+'vh';
+            element.style.left=(Math.random()*95)+'vw';
+        }
+        let m=false;
+        element.addEventListener('mouseenter',function(){
+            m=true;
         })
+        element.addEventListener('mouseleave',function(){
+            m=false;
+        })
+        element.addEventListener('click',function(){
+            if(m){
+                if(!start){
+                    start=true;
+                    element.innerText='';
+                    time=5;
+                }
+                else{
+                    score+=1;
+                    nw(element)
+                    s.innerText='分數:'+score;
+                    time+=5/score;
+                }
+            }
+        })
+        window.addEventListener('keydown',function(){
+            if(m){
+                if(!start){
+                    start=true;
+                    element.innerText='';
+                    time=5;
+                }
+                else{
+                    score+=1;
+                    nw(element)
+                    s.innerText='score:'+score;
+                    time+=5/score;
+                }
+            }
+        })
+        setInterval(function(){
+            time=Math.round(time*10)/10;
+            if(start){
+                t.innerText='time:'+time;
+                time-=0.1;
+                if(time<0){
+                    start=false;
+                    element.style.top='47.5vh';
+                    element.style.left='47.5vw';
+                    element.innerText='開始';
+                    score=0;
+                    time=5;
+                }
+            }
+        },100)
     </script>
 </body>
 </html>
