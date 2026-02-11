@@ -36,10 +36,28 @@
         let start=false;
         let time=5;
         let score=0;
-        function nw(element){
+        function nw(){
+            score+=1;
+            s.innerText='score:'+score;
             element.style.position='fixed';
             element.style.top=(Math.random()*95)+'vh';
             element.style.left=(Math.random()*95)+'vw';
+            element.innerText=Math.round(10*(4/score+Math.min(0.3,Math.max(0.1,(70-score)/10))))/10;
+        }
+        function add(){
+            if(!start){
+                start=true;                
+                nw();
+                time=5;
+            }
+            else{
+                nw()
+                if(time<5){time+=0.1}
+                if(time<3){time+=0.1}
+                if(time<2){time+=0.1}
+                if(time<1){time+=0.1}
+                time+=4/score+Math.min(0.3,Math.max(0.1,(70-score)/10));
+            }
         }
         let m=false;
         element.addEventListener('mouseenter',function(){
@@ -50,32 +68,12 @@
         })
         element.addEventListener('click',function(){
             if(m){
-                if(!start){
-                    start=true;
-                    element.innerText='';
-                    time=5;
-                }
-                else{
-                    score+=1;
-                    nw(element)
-                    s.innerText='分數:'+score;
-                    time+=5/score;
-                }
+                add();
             }
         })
         window.addEventListener('keydown',function(){
             if(m){
-                if(!start){
-                    start=true;
-                    element.innerText='';
-                    time=5;
-                }
-                else{
-                    score+=1;
-                    nw(element)
-                    s.innerText='score:'+score;
-                    time+=5/score;
-                }
+                add();
             }
         })
         setInterval(function(){
@@ -87,10 +85,13 @@
                     start=false;
                     element.style.top='47.5vh';
                     element.style.left='47.5vw';
-                    element.innerText='開始';
+                    element.innerText='start';
                     score=0;
                     time=5;
                 }
+                if(time>5){t.style.color='black'}
+                if(time<5){t.style.color='blue'}
+                if(time<3){t.style.color='red'}
             }
         },100)
     </script>
